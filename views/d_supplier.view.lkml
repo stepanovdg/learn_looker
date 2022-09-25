@@ -7,7 +7,7 @@ view: d_supplier {
 
   dimension: s_acctbal {
     label: "Account Balance"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     value_format_name: price
     type: number
     sql: ${TABLE}."S_ACCTBAL" ;;
@@ -15,7 +15,7 @@ view: d_supplier {
 
   dimension: s_address {
     label: "Address"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     tags: [ "GEO", "PII"]
     hidden: yes
     type: string
@@ -24,7 +24,7 @@ view: d_supplier {
 
   dimension: s_name {
     label: "Name"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     hidden: yes
     tags: ["PII"]
     type: string
@@ -33,7 +33,7 @@ view: d_supplier {
 
   dimension: s_nation {
     label: "Nationality"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     type: string
     sql: ${TABLE}."S_NATION" ;;
   }
@@ -41,7 +41,7 @@ view: d_supplier {
   dimension: s_phone {
 
     label: "Phone Number"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     hidden: yes
     tags: ["PII", "PHONE"]
     type: string
@@ -51,7 +51,7 @@ view: d_supplier {
   dimension: s_region {
 
     label: "Region"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     tags: [ "GEO"]
     type: string
     sql: ${TABLE}."S_REGION" ;;
@@ -60,7 +60,7 @@ view: d_supplier {
   dimension: s_suppkey {
 
     label: "ID"
-    view_label: "Supplier"
+    # view_label: "Supplier"
     hidden:  yes
     tags: ["ID", "INTERNAL"]
     primary_key: yes
@@ -70,7 +70,7 @@ view: d_supplier {
 
   measure: count {
     label: "Number of Suppliers"
-    view_label: "Supplier"
+    # view_label: "Supplier"
 
     type: count
     drill_fields: [s_name]

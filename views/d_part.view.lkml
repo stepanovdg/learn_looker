@@ -7,7 +7,7 @@ view: d_part {
 
   dimension: p_brand {
     label: "Brand"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: string
     sql: ${TABLE}."P_BRAND" ;;
@@ -15,7 +15,7 @@ view: d_part {
 
   dimension: p_mfgr {
     label: "Manufacter"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: string
     sql: ${TABLE}."P_MFGR" ;;
@@ -24,7 +24,7 @@ view: d_part {
   dimension: p_name {
 
     label: "Part Name"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: string
     sql: ${TABLE}."P_NAME" ;;
@@ -33,7 +33,7 @@ view: d_part {
   dimension: p_partkey {
 
     label: "Brand"
-    view_label: "Inventory"
+    # view_label: "Inventory"
     tags: ["ID", "INTERNAL"]
     hidden: yes
 
@@ -44,7 +44,7 @@ view: d_part {
   dimension: p_size {
 
     label: "Size"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: number
     sql: ${TABLE}."P_SIZE" ;;
@@ -53,7 +53,7 @@ view: d_part {
   dimension: p_type {
 
     label: "Type"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: string
     sql: ${TABLE}."P_TYPE" ;;
@@ -62,7 +62,7 @@ view: d_part {
   measure: count {
 
     label: "Total Parts Number"
-    view_label: "Inventory"
+    # view_label: "Inventory"
 
     type: count
     drill_fields: [p_name]

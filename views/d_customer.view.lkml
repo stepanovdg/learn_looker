@@ -8,7 +8,7 @@ view: d_customer {
 
   dimension: c_address {
     label: "Address"
-    view_label: "Customer"
+    # view_label: "Customer"
     tags: ["PII", "GEO"]
     hidden: yes
 
@@ -18,7 +18,7 @@ view: d_customer {
 
   dimension: c_custkey {
     label: "ID"
-    view_label: "Customer"
+    # view_label: "Customer"
     hidden: yes
     type: number
     primary_key: yes
@@ -28,7 +28,7 @@ view: d_customer {
 
   dimension: c_mktsegment {
     label: "Marketing Segment"
-    view_label: "Customer"
+    # view_label: "Customer"
 
     type: number
     sql: ${TABLE}."C_MKTSEGMENT" ;;
@@ -36,7 +36,7 @@ view: d_customer {
 
   dimension: c_name {
     label: "Name"
-    view_label: "Customer"
+    # view_label: "Customer"
     tags: ["PII"]
     hidden: yes
 
@@ -46,7 +46,7 @@ view: d_customer {
 
   dimension: c_nation {
     label: "Nationality"
-    view_label: "Customer"
+    # view_label: "Customer"
     hidden: no
 
     type: string
@@ -55,7 +55,7 @@ view: d_customer {
 
   dimension: c_phone {
     label: "Phone Number"
-    view_label: "Customer"
+    # view_label: "Customer"
     tags: ["PII"]
     hidden: yes
 
@@ -65,7 +65,7 @@ view: d_customer {
 
   dimension: c_region {
     label: "Region"
-    view_label: "Customer"
+    # view_label: "Customer"
     tags: ["GEO"]
     hidden: no
 
@@ -75,7 +75,7 @@ view: d_customer {
 
   measure: count {
     label: "Number of Customers"
-    view_label: "Customer"
+    # view_label: "Customer"
 
     type: count
     drill_fields: [c_name]

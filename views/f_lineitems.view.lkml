@@ -86,7 +86,7 @@ view: f_lineitems {
     view_label: "Order"
     tags: ["ID", "INTERNAL"]
     hidden: yes
-
+    primary_key: yes
     type: number
     sql: ${TABLE}."L_ORDERKEY" ;;
   }
@@ -216,4 +216,34 @@ view: f_lineitems {
     type: count
     drill_fields: []
   }
+
+  measure: total_sales_price {
+    label: "Total Sales Price"
+    description: "Total Sales Value"
+    view_label: "Order"
+    type: sum
+    # assume extended price is with tax and etc.
+    sql: ${l_extendedprice} ;;
+    value_format_name: price
+  }
+
+  measure: avg_sales_price {
+    label: "Average Sales Price"
+    view_label: "Order"
+    description: "Average Sales Value"
+    type: average_distinct
+    # assume extended price is with tax and etc.
+    sql: ${l_extendedprice} ;;
+    value_format_name: price
+  }
+
+  measure: cumulative_sales_price {
+    label: "Cumulative Sales Price"
+    view_label: "Order"
+    description: "Cumulative Sales Value"
+    type: running_total
+    sql: ${total_sales_price} ;;
+    value_format_name: price
+  }
+
 }
