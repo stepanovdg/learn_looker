@@ -68,6 +68,17 @@ view: d_supplier {
     sql: ${TABLE}."S_SUPPKEY" ;;
   }
 
+  dimension: s_supp_cohort {
+
+    label: "Cohort"
+    description: "Cohort of suppliers according to Account Balance"
+    # view_label: "Supplier"
+    type: tier
+    style: relational
+    tiers: [1, 3001, 5001, 7001]
+    sql: ${s_acctbal};;
+  }
+
   measure: count {
     label: "Number of Suppliers"
     # view_label: "Supplier"

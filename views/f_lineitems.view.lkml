@@ -213,7 +213,8 @@ view: f_lineitems {
   measure: count {
     label: "Total Orders Number"
     view_label: "Order"
-    type: count
+    sql: ${l_orderkey} ;;
+    type: count_distinct
     drill_fields: []
   }
 
@@ -223,6 +224,7 @@ view: f_lineitems {
     view_label: "Order"
     type: sum
     # assume extended price is with tax and etc.
+    sql_distinct_key: ${l_orderkey} ;;
     sql: ${l_extendedprice} ;;
     value_format_name: price
   }
@@ -231,8 +233,9 @@ view: f_lineitems {
     label: "Average Sales Price"
     view_label: "Order"
     description: "Average Sales Value"
-    type: average_distinct
-    # assume extended price is with tax and etc.
+    type: average
+    # assume extended price is with tax and etc and ,ultipled by amount.
+    # sql_distinct_key: ${l_orderkey} ;;
     sql: ${l_extendedprice} ;;
     value_format_name: price
   }
@@ -242,8 +245,118 @@ view: f_lineitems {
     view_label: "Order"
     description: "Cumulative Sales Value"
     type: running_total
+    sql_distinct_key: ${l_orderkey} ;;
     sql: ${total_sales_price} ;;
     value_format_name: price
   }
 
+  measure: total_sales_price_shipped_by_air {
+    label: "Total Sales Price Shipped By Air"
+    view_label: "Order"
+    description: "Total Sales Price filtered by using shipping method air"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_extendedprice} ;;
+    filters: [l_shipmode: "AIR, REG AIR"]
+    value_format_name: price
+  }
+
+  measure: total_sales_price_customer_russia {
+    label: "Total Sales Price Customer From Russia"
+    view_label: "Order"
+    description: "Total Sales Price filtered by customer located in Russia"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_extendedprice} ;;
+    filters: [ d_customer.c_nation: "RUSSIA"]
+    value_format_name: price
+  }
+
+  measure: total_gross_revenue {
+    label: "Total Gross Revenue"
+    view_label: "Order"
+    description: "Total price of completed sales"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_extendedprice} ;;
+    filters: [ l_orderstatus: "F"]
+    value_format_name: price
+  }
+
+  measure: total_cost {
+    label: "Total Cost"
+    view_label: "Order"
+    description: "Total cost completed sales"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_supplycost} ;;
+    value_format_name: price
+  }
+
+  measure: total_gross_margin {
+    label: "Total Gross Margin"
+    view_label: "Order"
+    description: "Total gross margin as Total Gross Revenue – Total Cost"
+    type: number
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${total_gross_revenue} - ${total_cost};;
+    value_format_name: price
+  }
+
+  measure: total_gross_margin_percentage {
+    label: "Total Gross Margin Percentage"
+    view_label: "Order"
+    description: "Total gross margin percentage as Total Gross Margin /Total Gross Revenue"
+    type: number
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${total_gross_margin} / nullif(${total_gross_revenue},0);;
+    value_format_name: percent
+  }
+
+  measure: total_returned_items{
+    label: "Number of Items Returned"
+    view_label: "Order"
+    description: "Sum of items in of orders with returned status"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_quantity};;
+    filters: [l_returnflag: "R"]
+  }
+
+  measure: total_sold_items{
+    label: "Number of Items Sold"
+    view_label: "Order"
+    description: "Sum of items in of orders with sold status"
+    type: sum
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${l_quantity};;
+  }
+
+  measure: total_return_item_rate {
+    label: "Item Return Rate"
+    view_label: "Order"
+    description: "Total item return rate as Number Of Items Returned / Total Number Of Items Sold"
+    type: number
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${total_returned_items} / nullif(${total_sold_items},0);;
+    value_format_name: percent
+  }
+
+  measure: total_customers_number{
+    label: "Number of Customers"
+    view_label: "Order"
+    description: "Total number of customers made at least one purchase"
+    type: count_distinct
+    sql: ${l_custkey} ;;
+  }
+
+  measure: avg_spend_per_customer {
+    label: "Average Spend per Customer"
+    view_label: "Order"
+    description: "Average amount of money each customer spend"
+    type: number
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: ${total_sales_price} / nullif(${total_customers_number},0);;
+    value_format_name: price
+  }
 }
