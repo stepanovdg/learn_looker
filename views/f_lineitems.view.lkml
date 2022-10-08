@@ -162,6 +162,7 @@ view: f_lineitems {
     label: "Shipping Mode"
     view_label: "Order"
     type: string
+    drill_fields: [d_supplier.s_region, d_supplier.s_supp_cohort]
     sql: ${TABLE}."L_SHIPMODE" ;;
   }
 
@@ -310,6 +311,16 @@ view: f_lineitems {
     type: number
     sql_distinct_key: ${l_orderkey} ;;
     sql: ${total_gross_margin} / nullif(${total_gross_revenue},0);;
+    value_format_name: percent
+  }
+
+  measure: gross_margin_percentage_of_total {
+    label: "Gross Margin Percentage"
+    view_label: "Order"
+    description: "Gross margin percentage as Gross Margin /Total Gross Margin"
+    type: number
+    sql_distinct_key: ${l_orderkey} ;;
+    sql: (${l_extendedprice} -${l_supplycost}) / ${total_gross_margin};;
     value_format_name: percent
   }
 

@@ -41,6 +41,13 @@ view: d_dates {
     sql: ${TABLE}."DAY_OF_WEEK" ;;
   }
 
+  dimension: day_of_month {
+    label: "Day of the Month (Number)"
+    # view_label: "Calendar"
+    type: number
+    sql: dayofmonth(${TABLE}."DATE_VAL") ;;
+  }
+
   dimension: dayname_of_week {
     label: "Day of the Week"
     # view_label: "Calendar"

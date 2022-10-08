@@ -25,10 +25,11 @@ view: d_supplier {
   dimension: s_name {
     label: "Name"
     # view_label: "Supplier"
-    hidden: yes
-    tags: ["PII"]
+    hidden: no
     type: string
     sql: ${TABLE}."S_NAME" ;;
+    drill_fields: [f_lineitems.l_partkey]
+    link: {url: "http://www.google.com/search?q={{ value }}" icon_url:"http://www.google.com/s2/favicons"}
   }
 
   dimension: s_nation {
